@@ -1,6 +1,6 @@
 # Add AWS as a provider and configure the default region
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
 }
 
 # Create VPC
@@ -12,7 +12,7 @@ resource "aws_vpc" "test-vpc" {
 resource "aws_subnet" "Sub1" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
   cidr_block        = "10.0.0.0/24"
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-2a"
 
   tags = {
     Name = "Sub1"
@@ -23,7 +23,7 @@ resource "aws_subnet" "Sub1" {
 resource "aws_subnet" "Sub2" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-2b"
 
   tags = {
     Name = "Sub2"
@@ -34,7 +34,7 @@ resource "aws_subnet" "Sub2" {
 resource "aws_subnet" "Sub3" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
   cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-east-1c"
+  availability_zone = "us-east-2c"
 
   tags = {
     Name = "Sub3"
@@ -45,7 +45,7 @@ resource "aws_subnet" "Sub3" {
 resource "aws_subnet" "Sub4" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
   cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-1d"
+  availability_zone = "us-east-2d"
 
   tags = {
     Name = "Sub4"
@@ -74,7 +74,7 @@ resource "aws_instance" "test-instance" {
 
 # Add EBS volume
 resource "aws_ebs_volume" "test-volume" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-2a"
   size              = 20
 }
 
