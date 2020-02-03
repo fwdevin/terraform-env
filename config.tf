@@ -10,7 +10,7 @@ resource "aws_vpc" "test-vpc" {
 
 # Create Sub1
 resource "aws_subnet" "Sub1" {
-  vpc_id            = "${aws_vpc.test-vpc.id}"
+  vpc_id            = aws_vpc.test-vpc.id
   cidr_block        = "10.0.0.0/24"
   availability_zone = "us-east-2a"
 
@@ -21,7 +21,7 @@ resource "aws_subnet" "Sub1" {
 
 # Create Sub2
 resource "aws_subnet" "Sub2" {
-  vpc_id            = "${aws_vpc.test-vpc.id}"
+  vpc_id            = aws_vpc.test-vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-2b"
 
@@ -32,7 +32,7 @@ resource "aws_subnet" "Sub2" {
 
 # Create Sub3
 resource "aws_subnet" "Sub3" {
-  vpc_id            = "${aws_vpc.test-vpc.id}"
+  vpc_id            = aws_vpc.test-vpc.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-2c"
 
@@ -43,7 +43,7 @@ resource "aws_subnet" "Sub3" {
 
 # Create Sub4
 resource "aws_subnet" "Sub4" {
-  vpc_id            = "${aws_vpc.test-vpc.id}"
+  vpc_id            = aws_vpc.test-vpc.id
   cidr_block        = "10.0.3.0/24"
   availability_zone = "us-east-2d"
 
@@ -67,9 +67,9 @@ data "aws_ami" "redhat" {
 # Create a t2.micro EC2 instance type 
 # (Standard_DS1_v2 seems to be an Azure type)
 resource "aws_instance" "test-instance" {
-  ami           = "${data.aws_ami.redhat.id}"
+  ami           = data.aws_ami.redhat.id
   instance_type = "t2.micro"
-  subnet_id     = "${aws_subnet.Sub1.id}"
+  subnet_id     = aws_subnet.Sub1.id
 }
 
 # Add EBS volume
@@ -81,6 +81,6 @@ resource "aws_ebs_volume" "test-volume" {
 # Attach EBS volume to EC2 instance
 resource "aws_volume_attachment" "ebs_att" {
   device_name = "/dev/sda1"
-  volume_id   = "${aws_ebs_volume.test-volume.id}"
-  instance_id = "${aws_instance.test-instance.id}"
+  volume_id   = aws_ebs_volume.test-volume.id
+  instance_id = aws_instance.test-instance.id
 }
