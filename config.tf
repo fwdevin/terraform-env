@@ -9,7 +9,7 @@ resource "aws_vpc" "test-vpc" {
 }
 
 # Create Sub1
-resource "aws_subnet" "my_subnet" {
+resource "aws_subnet" "Sub1" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
   cidr_block        = "10.0.0.0/24"
   availability_zone = "us-east-1a"
@@ -20,7 +20,7 @@ resource "aws_subnet" "my_subnet" {
 }
 
 # Create Sub2
-resource "aws_subnet" "my_subnet" {
+resource "aws_subnet" "Sub2" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1b"
@@ -31,7 +31,7 @@ resource "aws_subnet" "my_subnet" {
 }
 
 # Create Sub3
-resource "aws_subnet" "my_subnet" {
+resource "aws_subnet" "Sub3" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
   cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1c"
@@ -42,9 +42,9 @@ resource "aws_subnet" "my_subnet" {
 }
 
 # Create Sub4
-resource "aws_subnet" "my_subnet" {
+resource "aws_subnet" "Sub4" {
   vpc_id            = "${aws_vpc.test-vpc.id}"
-  cidr_block        = "10.0.2.0/24"
+  cidr_block        = "10.0.3.0/24"
   availability_zone = "us-east-1d"
 
   tags = {
@@ -69,6 +69,7 @@ data "aws_ami" "redhat" {
 resource "aws_instance" "test-instance" {
   ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
+  subnet_id     = "${aws_subnet.Sub1.id}"
 }
 
 # Add EBS volume
