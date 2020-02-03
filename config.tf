@@ -12,11 +12,6 @@ data "aws_ami" "redhat" {
     values = ["RHEL-8.0.0_HVM"]
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
   owners = ["309956199498"] # Red Hat
 }
 
