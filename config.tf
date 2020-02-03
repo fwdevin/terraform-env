@@ -22,7 +22,15 @@ resource "aws_instance" "test-instance" {
   instance_type = "t2.micro"
 }
 
+# Add EBS volume
 resource "aws_ebs_volume" "test-volume" {
   availability_zone = "us-east-1a"
   size              = 20
+}
+
+# Attach EBS volume to EC2 instance
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sda1"
+  volume_id   = "${aws_ebs_volume.test-volume.id}"
+  instance_id = "${aws_instance.test-instance.id}"
 }
