@@ -45,7 +45,7 @@ resource "aws_subnet" "Sub3" {
 resource "aws_subnet" "Sub4" {
   vpc_id            = aws_vpc.test-vpc.id
   cidr_block        = "10.0.3.0/24"
-  availability_zone = "us-east-2d"
+  availability_zone = "us-east-2c"
 
   tags = {
     Name = "Sub4"
@@ -58,8 +58,13 @@ data "aws_ami" "redhat" {
 
   filter {
     name   = "name"
-    values = ["RHEL-8.0.0_HVM"]
+    values = ["RHEL-8.0.0_HVM*"]
   }
+
+filter {
+    name   = "architecture"
+    values = ["x86_64"]
+}
 
   owners = ["309956199498"] # Red Hat
 }
@@ -80,7 +85,7 @@ resource "aws_ebs_volume" "test-volume" {
 
 # Attach EBS volume to EC2 instance
 resource "aws_volume_attachment" "ebs_att" {
-  device_name = "/dev/sda1"
+  device_name = "/dev/sda2"
   volume_id   = aws_ebs_volume.test-volume.id
   instance_id = aws_instance.test-instance.id
 }
